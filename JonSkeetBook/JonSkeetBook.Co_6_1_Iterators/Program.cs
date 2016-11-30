@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace JonSkeetBook.Co_6_1_Iterators
 {
@@ -11,7 +12,7 @@ namespace JonSkeetBook.Co_6_1_Iterators
 
         Позволяет получать доступ ко всем элментам последовательности, не заботясь о том, что это за последовательность.
         
-        Этот паттер хорошо подходит для реализации конвейера данных, когда элемент данных попадает в конвейер и проходит
+        Этот паттерн хорошо подходит для реализации конвейера данных, когда элемент данных попадает в конвейер и проходит
         через множество различных преобразований или фильтров, перед выходом с другого конца конвейера.
 
         В .NET паттерн итератора инкапсулируется набором интерфейсов - IEnumerator и IEnumerable, а также их обобщенными
@@ -28,25 +29,85 @@ namespace JonSkeetBook.Co_6_1_Iterators
     {
         static void Main()
         {
-            Action<string> action = Console.WriteLine;
-
-            var strings = new[] { "a", "b", "c", "d", "e", "f" };
-            IEnumerator enumerator = strings.GetEnumerator();
-            try
+            var c = new MyCollection<int>(new[] { 1, 2, 3, 4 }, 3);
+            foreach (var item in c)
             {
-                string s;
-                while (enumerator.MoveNext())
+                Console.WriteLine(item);
+            }
+            Console.ReadLine();
+        }
+    }
+
+    class MyCollection<T> : IEnumerable<T>
+    {
+        private T[] _values;
+        private int _startIndex;
+
+        public MyCollection(T[] values, int startIndex)
+        {
+            _values = values;
+            _startIndex = startIndex;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return new MyCollectionEnumerator(this);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return new MyCollectionEnumerator(this);
+        }
+
+        private class MyCollectionEnumerator : IEnumerator<T>
+        {
+            private MyCollection<T> _myCollection;
+            private int _index;
+
+            public MyCollectionEnumerator(MyCollection<T> myCollection)
+            {
+                _myCollection = myCollection;
+                _index = -1;
+            }
+
+            public T Current
+            {
+                get
                 {
-                    s = (string)enumerator.Current;
-                    action(s);
+                    int index = _index + _myCollection._startIndex;
+                    index = index % _myCollection._values.Length;
+                    return _myCollection._values[index];
                 }
             }
-            finally
-            {
 
+            object IEnumerator.Current
+            {
+                get
+                {
+                    int index = _index + _myCollection._startIndex;
+                    index = index % _myCollection._values.Length;
+                    return _myCollection._values[index];
+                }
             }
 
-            Console.ReadLine();
+            public void Dispose()
+            {
+                Console.WriteLine("Dispose");
+            }
+
+            public bool MoveNext()
+            {
+                if (_index != _myCollection._values.Length)
+                {
+                    _index++;
+                }
+                return _index < _myCollection._values.Length;
+            }
+
+            public void Reset()
+            {
+                _index = -1;
+            }
         }
     }
 }
