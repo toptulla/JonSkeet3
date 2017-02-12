@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JonSkeetBook.Co_2_1_Delegates", "JonSkeetBook.Co_2_1_Delegates\JonSkeetBook.Co_2_1_Delegates.csproj", "{166BD1A8-0CAE-4214-9EDC-7B19A8D0F1A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JonSkeetBook.Co_1_1_Evolution", "JonSkeetBook.Co_1_1_Evolution\JonSkeetBook.Co_1_1_Evolution.csproj", "{0CA212CC-AE47-43FD-AA2C-2456011DDC27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{166BD1A8-0CAE-4214-9EDC-7B19A8D0F1A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{166BD1A8-0CAE-4214-9EDC-7B19A8D0F1A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{166BD1A8-0CAE-4214-9EDC-7B19A8D0F1A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CA212CC-AE47-43FD-AA2C-2456011DDC27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CA212CC-AE47-43FD-AA2C-2456011DDC27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CA212CC-AE47-43FD-AA2C-2456011DDC27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CA212CC-AE47-43FD-AA2C-2456011DDC27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
