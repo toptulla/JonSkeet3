@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JonSkeetBook.Co_2_1_Delegat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JonSkeetBook.Co_6_1_Iterators", "JonSkeetBook.Co_6_1_Iterators\JonSkeetBook.Co_6_1_Iterators.csproj", "{A1E8B70F-04CD-4F2C-8430-806CC5B0BBC4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JonSkeetBook.Co_4_NullableTypes", "JonSkeetBook.Co_4_NullableTypes\JonSkeetBook.Co_4_NullableTypes.csproj", "{8799A65A-2222-4B83-9C93-9BF00FEE71FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A1E8B70F-04CD-4F2C-8430-806CC5B0BBC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1E8B70F-04CD-4F2C-8430-806CC5B0BBC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1E8B70F-04CD-4F2C-8430-806CC5B0BBC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8799A65A-2222-4B83-9C93-9BF00FEE71FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8799A65A-2222-4B83-9C93-9BF00FEE71FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8799A65A-2222-4B83-9C93-9BF00FEE71FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8799A65A-2222-4B83-9C93-9BF00FEE71FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
