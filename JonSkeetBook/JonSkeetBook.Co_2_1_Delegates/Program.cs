@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Text;
 
 namespace JonSkeetBook.Co_2_1_Delegates
 {
@@ -47,17 +49,31 @@ namespace JonSkeetBook.Co_2_1_Delegates
 
     class Program
     {
-        private delegate void StringProcessor(string s);
-        
         static void Main()
+        {
+            Console.OutputEncoding = Encoding.UTF8;
+            try
+            {
+                Event();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            
+            Console.ReadLine();
+        }
+
+        #region First example
+        private delegate void StringProcessor(string s);
+
+        private static void FirstExample()
         {
             StringProcessor sp1 = new StringProcessor(PrintString1);
             StringProcessor sp2 = new StringProcessor(PrintString2);
 
             var sp = (StringProcessor)Delegate.Combine(sp1, sp2);
             sp.Invoke("s");
-            
-            Console.ReadLine();
         }
 
         private static void PrintString1(string s)
@@ -68,6 +84,110 @@ namespace JonSkeetBook.Co_2_1_Delegates
         private static void PrintString2(object s)
         {
             Console.WriteLine($"object: {s}");
+        }
+        #endregion
+
+        #region Second region
+        public delegate string DoCalculation(EngCalc clac);
+
+        private static void SecondExample()
+        {
+            var calc1 = new DoCalculation(Show1);
+            var calc2 = new DoCalculation(Show2);
+
+            // Как очеред, первым скомбинирован  - первым выполнится
+            // Если возвращается значение, это значение будет того, кто выполнился последним
+            var combine = (DoCalculation)Delegate.Combine(calc1, calc2);
+            
+            //DoCalculation combine = null;
+            //combine += calc1; //(DoCalculation)Delegate.Combine(combine, calc1);
+            //combine += calc2; //(DoCalculation)Delegate.Combine(combine, calc2);
+            
+            //combine -= calc2; //(DoCalculation)Delegate.Remove(combine, calc1);
+
+            //// Если результатом оказывается пустой список вызова, возвращается null.
+            //// Тут как раз это и происходит => combine is null !!!!!!
+            //combine -= calc1; //(DoCalculation)Delegate.Remove(combine, calc1);
+            
+            Calc instance = new EngCalc(10);
+
+            string s = combine((EngCalc)instance);
+            Console.WriteLine(s);
+        }
+
+        private static string Show1(Calc c)
+        {
+            return c.SumInt(1, 2).ToString(CultureInfo.InvariantCulture);
+        }
+
+        private static string Show2(EngCalc c)
+        {
+            return c.SumDouble(1, 2).ToString(CultureInfo.InvariantCulture);
+        }
+        #endregion
+
+        private static void Event()
+        {
+            var eventContainer = new EventContainer();
+
+            //eventContainer.Event = (s, e) => { }; // Ощибка при компиляции, нельзя напрямую изменять, необходимо пользоваться акцессорами события
+            eventContainer.Event += (s, e) => { Console.WriteLine(e.Message); };
+
+            eventContainer.Go();
+        }
+    }
+
+    class Calc
+    {
+        public int X { get; }
+
+        public Calc(int x)
+        {
+            X = x;
+        }
+
+        public int SumInt(int x, int y)
+        {
+            return x + y;
+        }
+    }
+
+    class EngCalc : Calc
+    {
+        public EngCalc(int x)
+            : base(x)
+        {
+            
+        }
+
+        public double SumDouble(double x, double y)
+        {
+            return x + y + X;
+        }
+    }
+
+    class EventContainer
+    {
+        public event EventHandler<MyEventArgs> Event;
+
+        protected virtual void OnEvent()
+        {
+            Event?.Invoke(this, new MyEventArgs($"Hello from {GetType().Name}!"));
+        }
+
+        public void Go()
+        {
+            OnEvent();
+        }
+    }
+
+    class MyEventArgs : EventArgs
+    {
+        public string Message { get; }
+
+        public MyEventArgs(string message)
+        {
+            Message = message;
         }
     }
 }
