@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Globalization;
 using System.Text;
+using System.Threading;
 
 namespace JonSkeetBook.Co_2_1_Delegates
 {
@@ -54,7 +56,7 @@ namespace JonSkeetBook.Co_2_1_Delegates
             Console.OutputEncoding = Encoding.UTF8;
             try
             {
-                Event();
+                MethodGroups();
             }
             catch (Exception e)
             {
@@ -126,6 +128,7 @@ namespace JonSkeetBook.Co_2_1_Delegates
         }
         #endregion
 
+        #region Third
         private static void Event()
         {
             var eventContainer = new EventContainer();
@@ -134,6 +137,35 @@ namespace JonSkeetBook.Co_2_1_Delegates
             eventContainer.Event += (s, e) => { Console.WriteLine(e.Message); };
 
             eventContainer.Go();
+        } 
+        #endregion
+
+        private static void MethodGroups()
+        {
+            // Преобразование групп методов
+            // Компилятор следит за тем, можем ли мы преобразовать любую из
+            // перегрузок данного метода (из-за этого такое название) в ожидаемый
+            // делегат.
+            ThreadStart ts = Start;
+
+            Action a = () => { };
+            Action<int> b = i => { };
+            Type t = a.Target.GetType();
+
+            //IEnumerable ie = null;
+            //ICollection ic = null;
+            //IList il = null;
+            //Array ar = null;
+        }
+
+        private static void Start()
+        {
+            
+        }
+
+        private static void Start(object sender, EventArgs e)
+        {
+            
         }
     }
 
