@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +40,22 @@ namespace JonSkeetBook.Co_6_1_Iterators
                 Console.WriteLine(day);
             }
         }
+
+        /// <summary>
+        /// Ленивая фильтрация с использованием блока итератора и предиката
+        /// </summary>
+        public static void Example3()
+        {
+            IEnumerable<string> lines = MyFileReader.ReadLines(@"..\..\Part2.cs");
+            Predicate<string> predicate = delegate(string line)
+            {
+                return line.StartsWith("using");
+            };
+            foreach (string line in FakeLinq.Where(lines, predicate))
+            {
+                Console.WriteLine(line);
+            }
+        }
     }
 
     class TimeTable
@@ -59,5 +77,60 @@ namespace JonSkeetBook.Co_6_1_Iterators
         }
     }
 
+    class MyFileReader
+    {
+        public static IEnumerable<string> ReadLines(string fileName)
+        {
+            return ReadLines(delegate
+            {
+                return new StreamReader(fileName, Encoding.UTF8);
+            });
+        }
 
+        private static IEnumerable<string> ReadLines(Func<StreamReader> provider)
+        {
+            using (StreamReader tr = provider())
+            {
+                string line;
+                while ((line = tr.ReadLine()) != null)
+                {
+                    yield return line;
+                }
+            }
+        }
+    }
+
+    /*
+        Ленивое (отложенное) выполнение!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     * 
+        В этом примере реализация разбита на две части: проверка достоверности аргументов и дей-
+        ствительная бизнес-логика фильтрации. Это немного неуклюже, но совершенно необходимо для
+        разумной обработки ошибок. Предположим, что вы поместили все в один метод. Что произойдет
+        при вызове Where<string>(null, null)? Ответ: ничего... или, во всяком случае, желаемое
+        исключение не будет сгенерировано. Причина кроется в семантике ленивого выполнения итера-
+        торных блоков: код в теле метода не запускается до тех пор, пока метод MoveNext() не будет
+        вызван первый раз, как объяснялось в разделе 6.2.2. Обычно проверять предусловия необходимо
+        энергичным образом — нет никакого смысла в откладывании генерации исключения, т.к. это
+        только усложнит отладку.
+    */
+
+    class FakeLinq
+    {
+        public static IEnumerable<T> Where<T>(IEnumerable<T> source, Predicate<T> predicate)
+        {
+            if(source == null || predicate == null)
+                throw new ArgumentException();
+
+            return WhereImpl(source, predicate);
+        }
+
+        private static IEnumerable<T> WhereImpl<T>(IEnumerable<T> source, Predicate<T> predicate)
+        {
+            foreach (var item in source)
+            {
+                if (predicate(item))
+                    yield return item;
+            }
+        }
+    }
 }

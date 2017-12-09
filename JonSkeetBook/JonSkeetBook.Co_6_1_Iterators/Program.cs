@@ -197,7 +197,8 @@ namespace JonSkeetBook.Co_6_1_Iterators
         
         private static void Part2()
         {
-            JonSkeetBook.Co_6_1_Iterators.Part2.Example1();
+            //JonSkeetBook.Co_6_1_Iterators.Part2.Example1();
+            JonSkeetBook.Co_6_1_Iterators.Part2.Example3();
         }
     }
 }
