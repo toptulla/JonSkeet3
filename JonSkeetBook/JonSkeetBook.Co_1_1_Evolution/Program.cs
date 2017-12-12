@@ -1,6 +1,6 @@
 ﻿namespace JonSkeetBook.Co_1_1_Evolution
 {
-    static void Main()
+        static void Main()
         {
             SortingC2V2();
 
