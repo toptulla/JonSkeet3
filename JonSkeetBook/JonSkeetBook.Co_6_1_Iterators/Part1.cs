@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 namespace JonSkeetBook.Co_6_1_Iterators
 {
+    /// <summary>
+    /// Реализация обобщенных интерфейсов
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     class CircleBuffer<T> : IEnumerable<T>
     {
         private readonly T[] _values;
@@ -73,7 +77,9 @@ namespace JonSkeetBook.Co_6_1_Iterators
         }
     }
 
-
+    /// <summary>
+    /// Реализация необобщенных интерфейсов
+    /// </summary>
     public class MyCollection : IEnumerable
     {
         private readonly object[] _values;
@@ -196,6 +202,10 @@ namespace JonSkeetBook.Co_6_1_Iterators
         }
     }
 
+    /// <summary>
+    /// Блоки итератора, появились в C#2
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class WowSharp2Iterable<T> : IEnumerable<T>
     {
         private readonly T[] _values;

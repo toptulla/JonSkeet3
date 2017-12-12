@@ -51,7 +51,7 @@ namespace JonSkeetBook.Co_6_1_Iterators
             {
                 return line.StartsWith("using");
             };
-            foreach (string line in FakeLinq.Where(lines, predicate))
+            foreach (string line in LazyLinq.Where(lines, predicate))
             {
                 Console.WriteLine(line);
             }
@@ -77,6 +77,7 @@ namespace JonSkeetBook.Co_6_1_Iterators
         }
     }
 
+
     class MyFileReader
     {
         public static IEnumerable<string> ReadLines(string fileName)
@@ -100,6 +101,7 @@ namespace JonSkeetBook.Co_6_1_Iterators
         }
     }
 
+
     /*
         Ленивое (отложенное) выполнение!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      * 
@@ -114,7 +116,7 @@ namespace JonSkeetBook.Co_6_1_Iterators
         только усложнит отладку.
     */
 
-    class FakeLinq
+    class LazyLinq
     {
         public static IEnumerable<T> Where<T>(IEnumerable<T> source, Predicate<T> predicate)
         {
