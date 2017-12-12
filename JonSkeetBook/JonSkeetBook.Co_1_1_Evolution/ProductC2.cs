@@ -45,4 +45,12 @@ namespace JonSkeetBook.Co_1_1_Evolution
             return string.Format("{0}: {1}", _name, _price);
         }
     }
+    
+    internal class ProductC2NameComparer : IComparer<ProductC2>
+    {
+        public int Compare(ProductC2 x, ProductC2 y)
+        {
+            return String.Compare(x.Name, y.Name, StringComparison.CurrentCulture);
+        }
+    }
 }
