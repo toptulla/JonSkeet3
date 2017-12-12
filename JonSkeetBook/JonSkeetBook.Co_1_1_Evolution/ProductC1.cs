@@ -40,4 +40,14 @@ namespace JonSkeetBook.Co_1_1_Evolution
             return string.Format("{0}: {1}", _name, _price);
         }
     }
+    
+    internal class ProductC1NameComparer : IComparer
+    {
+        public int Compare(object x, object y)
+        {
+            ProductC1 first = (ProductC1) x;
+            ProductC1 second = (ProductC1) y;
+            return String.Compare(first.Name, second.Name, StringComparison.CurrentCulture);
+        }
+    }
 }
