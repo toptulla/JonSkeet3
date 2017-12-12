@@ -1,5 +1,7 @@
 ﻿namespace JonSkeetBook.Co_1_1_Evolution
 {
+    class Program
+    {
         static void Main()
         {
             SortingC2V2();
@@ -45,4 +47,5 @@
             foreach (ProductC3 product in products.OrderBy(p => p.Name))
                 Console.WriteLine(product);
         }
+    }
 }
